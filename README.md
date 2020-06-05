@@ -14,3 +14,5 @@ log in
 write some text in the window "test", this text will be saved in a data base and showed on the front page.
 
 The app also communiqcate with an external serveur where we could put some algorithm we want to use in the main app, in order to better organise it.
+
+it also stock the data-base as a volume (then it can be save to prevent the lost of data)
