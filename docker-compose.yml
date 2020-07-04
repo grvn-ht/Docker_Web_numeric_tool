@@ -33,7 +33,7 @@ services:
    restart: always
    image: terminaljack/app_order:app
    ports:
-    - "5000:5000"
+    - "5000"
    depends_on:
     - postgres
     - server
