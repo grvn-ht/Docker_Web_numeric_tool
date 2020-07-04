@@ -9,7 +9,6 @@ services:
      - ./nginx.conf:/etc/nginx/nginx.conf
    ports:
      - 80:80
-     - 443:443
 
   postgres:
    restart: always
@@ -32,8 +31,6 @@ services:
   order:
    restart: always
    image: terminaljack/app_order:app
-   ports:
-    - "5000"
    depends_on:
     - postgres
     - server
