@@ -23,6 +23,8 @@ services:
   order:
    restart: always
    image: terminaljack/app_order:app
+   expose:
+    - 5000
    depends_on:
     - postgres
     - server
