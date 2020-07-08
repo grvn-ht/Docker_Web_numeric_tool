@@ -36,10 +36,13 @@ services:
    volumes:
      - ./nginx.conf:/etc/nginx/nginx.conf
    ports:
-     - 80:80
+     - '80:80'
      - '443:443'
    depends_on:
     - order
-
+    
+  certbot:
+    image: certbot/certbot
+    
 volumes:
   data:
