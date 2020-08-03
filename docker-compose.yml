@@ -1,33 +1,6 @@
 version: '3'
 
 services:
-
-  postgres:
-   restart: always
-   image: postgres:latest
-   volumes:
-    - data:/var/lib/postgresql/data
-   ports:
-    - "5432"
-   environment:
-    POSTGRES_USER: test
-    POSTGRES_PASSWORD: test
-    POSTGRES_DB: db
-
-  server:
-   restart: always
-   image: terminaljack/app_server:service
-   ports:
-    - "8080:8080"
-  
-  order:
-   restart: always
-   image: terminaljack/app_order:app
-   expose:
-    - 5000
-   depends_on:
-    - postgres
-    - server
     
   nginx: 
    restart: always
@@ -38,8 +11,6 @@ services:
    ports:
      - '80:80'
      - '443:443'
-   depends_on:
-    - order
     
   certbot:
     image: certbot/certbot
