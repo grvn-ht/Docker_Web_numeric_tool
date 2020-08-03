@@ -3,33 +3,6 @@ version: '3.6'
 
 services:
 
-  postgres:
-   restart: always
-   image: postgres:latest
-   volumes:
-    - data:/var/lib/postgresql/data
-   ports:
-    - "5432"
-   environment:
-    POSTGRES_USER: test
-    POSTGRES_PASSWORD: test
-    POSTGRES_DB: db
-
-  server:
-   restart: always
-   image: terminaljack/app_server:service
-   ports:
-    - "8080:8080"
-
-  order:
-   restart: always
-   image: terminaljack/app_order:app
-   expose:
-    - 5000
-   depends_on:
-    - postgres
-    - server
-
   nginx:
     image: nginx:1.15-alpine
     restart: unless-stopped
@@ -42,8 +15,6 @@ services:
       - ./data/certbot/www:/var/www/certbot
       - ./data/nginx/log:/var/log/nginx
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    depends_on:
-      - order
     
   certbot:
     image: certbot/certbot:v0.36.0
@@ -52,7 +23,3 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
-
-volumes:
-  data:
